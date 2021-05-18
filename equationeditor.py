@@ -63,16 +63,17 @@ class equacaoFrame(wx.Frame):
 
     #### SALVAR COMO ####
     def Onsaveas(self, event):
-     with wx.FileDialog(self,"Save as XYZ file", wildcard="xyz files (*.xyz)|*.xyz",
+     with wx.FileDialog(self,"Save as txt file", wildcard="txt files (*.txt)|*.txt",
                         style=wx.FD_SAVE|wx.FD_OVERWRITE_PROMPT) as fileDialog:
         if fileDialog.ShowModal() == wx.ID_CANCEL:
             return   
         pathname = fileDialog.GetPath()
+        wx.MessageBox("Arquivo '%s'salvo" %pathname)
         try:
             with open(pathname, 'w') as file:
                 self.doSaveData(file)
         except IOError:
-            wx.LogError("Cannot save current data in file '%s'." % pathname)
+            wx.LogError("Não é possivel salvar o arquivo atual '%s'." % pathname)
 
    #### FECHAR A TELA ####
     def Onexit(self, event):
