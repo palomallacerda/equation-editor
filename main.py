@@ -5,7 +5,7 @@ from functions import *
 class equacaoFrame(wx.Frame):
 ######## INICIANDO PAGINA #########
     def __init__(self, parent, title):
-        super(equacaoFrame, self).__init__(parent, title=title, size= (410,400))
+        super(equacaoFrame, self).__init__(parent, title=title, size= (400,400))
     
         self.locale = wx.Locale(wx.LANGUAGE_PORTUGUESE_BRAZILIAN)
         #criando uma barra de menu#
@@ -30,12 +30,12 @@ class equacaoFrame(wx.Frame):
     def makeMenuBar(self):
         fileMenu = wx.Menu()
         saveItem = fileMenu.Append(-1, "&Salvar\tCtrl+S",
-                "Help string shown in status bar for this menu item")
+                "Salvar arquivo")
         fileMenu.AppendSeparator()
         saveitemas = fileMenu.Append(-1, "&Salvar como\tCtrl+Shift+S",
                 "Salvar como")        
         
-        fileMenu.AppendSeparator()
+        fileMenu.AppendSeparator()  
         openitem = fileMenu.Append(wx.ID_OPEN)
         
         fileMenu.AppendSeparator()
