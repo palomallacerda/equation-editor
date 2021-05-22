@@ -1,3 +1,4 @@
+
 import wx
 from wx.core import * #LIGHT_GREY, MessageBox, Size, WHITE
 from functions import *
@@ -82,7 +83,7 @@ class equacaoFrame(wx.Frame):
 
     ##### SOBRE #######
     def Onsobre(self, event):       
-        wx.MessageBox("Trabalho feito por alunos do IC UFAL")
+        Ajuda()
 
     ###### ABRIR AQUIVO NOVO #######
     def Onopen(self, event):
