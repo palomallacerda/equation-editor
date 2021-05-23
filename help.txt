@@ -1,0 +1,15 @@
+Como utilizar o Editor de Equação:
+
+Operações básicas, como somar(+); multiplicar(*); subtrair(-), podem ser adicionadas
+diretamente do teclado
+
+Para adicionar operações que estão representadas nos botões, clique e observe como a 
+estrutura é montada.
+    Ex.: Para digitar uma potência, clique no botão e veja aparecer na caixa de texto
+         a seguinte estrutura -> ^[INDICE], antes do símbolo insira sua variável e
+         na área demarcada por [ÍNDICE], coloque o expoente.
+
+Quando sua equação estiver pronta para ser gerada, clique no botão 'Gerar' e veja o resultado
+na parte inferior da janela.
+
+É possível salvar (?)

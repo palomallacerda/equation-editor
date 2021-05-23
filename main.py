@@ -1,3 +1,4 @@
+from os import read
 import wx
 from wx.core import * #LIGHT_GREY, MessageBox, Size, WHITE
 from functions import *
@@ -81,8 +82,9 @@ class equacaoFrame(wx.Frame):
         self.Close(True)
 
     ##### SOBRE #######
-    def Onsobre(self, event):       
-        wx.MessageBox("Trabalho feito por alunos do IC UFAL")
+    def Onsobre(self, event):
+        with open('help.txt', 'r', encoding='utf-8') as file:
+            wx.MessageBox(file.read())
 
     ###### ABRIR AQUIVO NOVO #######
     def Onopen(self, event):
