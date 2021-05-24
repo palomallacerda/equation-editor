@@ -102,16 +102,14 @@ class equacaoFrame(wx.Frame):
         text.SetFont(font_text1)
         sizer.Add(text, pos=(0, 0), flag=wx.TOP|wx.LEFT|wx.BOTTOM, border=5)
 
-        tc = wx.TextCtrl(Tela)
-        sizer.Add(tc, pos=(1, 0), span=(1, 4),
+        user_input = wx.TextCtrl(Tela)
+        sizer.Add(user_input, pos=(1, 0), span=(1, 4),
             flag=wx.EXPAND|wx.LEFT|wx.RIGHT, border=5)
         Tela.SetSizer(sizer)
 
         #inserindo botao de enviar e limpar 
         buttonsend = wx.Button(Tela, label="Gerar", size=(90, 28))
-        buttonClear = wx.Button(Tela, label="Limpar", size=(90, 28))
         sizer.Add(buttonsend, pos=(2, 2))
-        sizer.Add(buttonClear, pos=(2, 3), flag=wx.RIGHT|wx.Right, border=10)
 
 
         #saida da equação
@@ -194,12 +192,12 @@ class equacaoFrame(wx.Frame):
         notsubset = wx.Image("Imagens/notsubset.png", wx.BITMAP_TYPE_ANY).ConvertToBitmap()
         self.notsubsetbutton = wx.BitmapButton(Tela, -1, notsubset, pos=(60,210), size =(notsubset.GetWidth()+5, notsubset.GetHeight()+5))
 
-        #botao de enviar e limpar 
+        #botao de enviar
         self.Bind(wx.EVT_BUTTON, self.enviar, buttonsend)
-        self.Bind(wx.EVT_BUTTON, self.limpar, buttonClear)
 
         #AÇÃO AO CLICAR NOS BOTOES#
         self.Bind(wx.EVT_BUTTON, self.writebeta, self.betabutton)
+
         #definindo botao imagem como uma ação
         self.betabutton.SetDefault()
         self.Bind(wx.EVT_BUTTON, self.writealpha, self.alphabutton)
@@ -240,11 +238,10 @@ class equacaoFrame(wx.Frame):
         self.subsetbutton.SetDefault()
 
     def enviar(self, event):
-        MessageBox("Enviar conteudo")
-    def limpar(self, event):
-        MessageBox("Limpar conteudo")
+        MessageBox("Enviar")  
+
     def writebeta(self, event):
-        MessageBox("Escrever beta")  
+        wx.TextCtrl.AppendText(self, 'kuwabara')
     def writealpha(self, event):
         MessageBox("Escrever Alpha")      
     def writetheta(self, event):
