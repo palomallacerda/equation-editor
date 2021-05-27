@@ -7,7 +7,7 @@ class equacaoFrame(wx.Frame):
 ######## INICIANDO PAGINA #########
     def __init__(self, parent, title):
         super(equacaoFrame, self).__init__(parent, title=title, size= (400,400))
-    
+
         self.locale = wx.Locale(wx.LANGUAGE_PORTUGUESE_BRAZILIAN)
         #criando uma barra de menu#
         self.makeMenuBar()
@@ -65,7 +65,7 @@ class equacaoFrame(wx.Frame):
 
     #### SALVAR COMO ####
     def Onsaveas(self, event):
-     with wx.FileDialog(self,"Save as txt file", wildcard="txt files (*.txt)|*.txt",
+     with wx.FileDialog(self,"Save as txt file", wildcard="txt files (*.Prya)|*.txt",
                         style=wx.FD_SAVE|wx.FD_OVERWRITE_PROMPT) as fileDialog:
         if fileDialog.ShowModal() == wx.ID_CANCEL:
             return   
@@ -101,11 +101,12 @@ class equacaoFrame(wx.Frame):
         font_text1 = wx.Font(12, wx.ROMAN, wx.ITALIC, wx.NORMAL)
         text.SetFont(font_text1)
         sizer.Add(text, pos=(0, 0), flag=wx.TOP|wx.LEFT|wx.BOTTOM, border=5)
-
-        user_input = wx.TextCtrl(Tela)
-        sizer.Add(user_input, pos=(1, 0), span=(1, 4),
+        
+        self.input = wx.TextCtrl(Tela)
+        sizer.Add(self.input, pos=(1, 0), span=(1, 4),
             flag=wx.EXPAND|wx.LEFT|wx.RIGHT, border=5)
         Tela.SetSizer(sizer)
+           
 
         #inserindo botao de enviar e limpar 
         buttonsend = wx.Button(Tela, label="Gerar", size=(90, 28))
@@ -192,12 +193,14 @@ class equacaoFrame(wx.Frame):
         notsubset = wx.Image("Imagens/notsubset.png", wx.BITMAP_TYPE_ANY).ConvertToBitmap()
         self.notsubsetbutton = wx.BitmapButton(Tela, -1, notsubset, pos=(60,210), size =(notsubset.GetWidth()+5, notsubset.GetHeight()+5))
 
-        #botao de enviar
-        self.Bind(wx.EVT_BUTTON, self.enviar, buttonsend)
 
+        self.input.Bind(wx.EVT_TEXT, self.Onwrite, self.input)
+        #Ação ao clicar em gerar
+        buttonsend.Bind(wx.EVT_BUTTON, self.enviar, buttonsend)
+        
         #AÇÃO AO CLICAR NOS BOTOES#
         self.Bind(wx.EVT_BUTTON, self.writebeta, self.betabutton)
-
+        
         #definindo botao imagem como uma ação
         self.betabutton.SetDefault()
         self.Bind(wx.EVT_BUTTON, self.writealpha, self.alphabutton)
@@ -237,47 +240,57 @@ class equacaoFrame(wx.Frame):
         self.Bind(wx.EVT_BUTTON, self.writesubset, self.subsetbutton)
         self.subsetbutton.SetDefault()
 
+    def Onwrite(self,event):
+        user = event.GetString()
+        print(user)
+        return user    
+        
     def enviar(self, event):
-        MessageBox("Enviar")  
+        #uso o nome do TextCtrl para pegar o valor escrito com GetValue
+        user_input = self.input.GetValue()
+        if(user_input == ''):
+            MessageBox('Insira uma equação primeiro')
+        else:
+            MessageBox('Gerando a expressão: ' + user_input)
 
     def writebeta(self, event):
-        wx.TextCtrl.AppendText(self, 'kuwabara')
+        beta  = self.input.AppendText('\\beta')
     def writealpha(self, event):
-        MessageBox("Escrever Alpha")      
+        alpha  = self.input.AppendText('\\alpha')   
     def writetheta(self, event):
-        MessageBox("Escrever theta")
+        Theta  = self.input.AppendText('\\theta')
     def writedelta(self, event):
-        MessageBox("Escrever Delta")
+        delta  = self.input.AppendText('\\delta')
     def writeomega(self, event):
-        MessageBox("Escrever Omega")
+        omega  = self.input.AppendText('\\omega')
     def writesigma(self, event):
-        MessageBox("Escrever Soma")
+        sigma  = self.input.AppendText('\\sigma')
     def writemenorq(self, event):
-        MessageBox("Escrever Menor que")
+        menor  = self.input.AppendText('<')
     def writeexist(self,event):
-        MessageBox("Escrever Existe")
+        exist  = self.input.AppendText('\\exist')
     def writenpertence(self, event):
-        MessageBox("Escrever Não pertence")
+        npertence  = self.input.AppendText('\\nãopertence')
     def writepertence(self,event):
-        MessageBox("Escrever Pertence")
+        pertence  = self.input.AppendText('\\pertence')
     def writepi(self, event):
-        MessageBox("Escrever Pi")
+        pi  = self.input.AppendText('\\pi')
     def writeraiz(self, event):
-        MessageBox("Escrever a raiz")
+        raiz  = self.input.AppendText('raiz')
     def writeraizn(self, event):
-        MessageBox("Escrever a raiz com variavel")
+        raizX  = self.input.AppendText('raizX')
     def writemaiorq(self, event):
-        MessageBox("Escrever Maior que")
+        maior  = self.input.AppendText('>')
     def writesobre(self, event):
-        MessageBox("Escrever X elevado")
+       sobre  = self.input.AppendText('x^')
     def writeabaixo(self, event):
-        MessageBox("Escrever X com n abaixo")
+        abaixo  = self.input.AppendText('x_')
     def writefraction(self, event):
-        MessageBox("escrever fração")
+        fraction  = self.input.AppendText('fraction')
     def writenotsubset(self, event):
-        MessageBox("Escrever  nao contido")
+        nsubset  = self.input.AppendText('naocontido')
     def writesubset(self, event):
-        MessageBox("Escrever contido")
+       subset  = self.input.AppendText('Contido')
         
 #função principal
 def main():
