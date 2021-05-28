@@ -65,7 +65,7 @@ class equacaoFrame(wx.Frame):
 
     #### SALVAR COMO ####
     def Onsaveas(self, event):
-     with wx.FileDialog(self,"Save as txt file", wildcard="txt files (*.Prya)|*.txt",
+     with wx.FileDialog(self,"Save as txt file", wildcard="txt files (*.prya)|*.prya",
                         style=wx.FD_SAVE|wx.FD_OVERWRITE_PROMPT) as fileDialog:
         if fileDialog.ShowModal() == wx.ID_CANCEL:
             return   
@@ -94,40 +94,36 @@ class equacaoFrame(wx.Frame):
     def InitEntrada(self):
 
         #Criando o conteiner #
-        Tela = wx.Panel(self)
+        self.Tela = wx.Panel(self)
         sizer = wx.GridBagSizer(4, 4)
 
-        text = wx.StaticText(Tela, label="Digite sua equação:")
+        text = wx.StaticText(self.Tela, label="Digite sua equação:")
         font_text1 = wx.Font(12, wx.ROMAN, wx.ITALIC, wx.NORMAL)
         text.SetFont(font_text1)
         sizer.Add(text, pos=(0, 0), flag=wx.TOP|wx.LEFT|wx.BOTTOM, border=5)
         
-        self.input = wx.TextCtrl(Tela)
+        self.input = wx.TextCtrl(self.Tela)
         sizer.Add(self.input, pos=(1, 0), span=(1, 4),
             flag=wx.EXPAND|wx.LEFT|wx.RIGHT, border=5)
-        Tela.SetSizer(sizer)
+        self.Tela.SetSizer(sizer)
            
 
         #inserindo botao de enviar e limpar 
-        buttonsend = wx.Button(Tela, label="Gerar", size=(90, 28))
+        buttonsend = wx.Button(self.Tela, label="Gerar", size=(90, 28))
         sizer.Add(buttonsend, pos=(2, 2))
 
 
         #saida da equação
-        saida = wx.StaticText(Tela, label="Equação gerada:", pos=(5,265))
+        saida = wx.StaticText(self.Tela, label="Equação gerada:", pos=(5,265))
         font = wx.Font(12, wx.ROMAN, wx.ITALIC, wx.NORMAL)
         saida.SetFont(font)
 
-        #caixa de texto da saida
-        #resposta_final = wx.TextCtrl(Tela)
-        #sizer.Add(resposta_final, pos=(4,0), span=(1,5), flag=wx.EXPAND|wx.LEFT|wx.RIGHT,
-        #    border=8)
-
+        
         #definindo cor de background
-        Tela.SetBackgroundColour(WHITE)
+        self.Tela.SetBackgroundColour(WHITE)
 
         #criando linha de separação
-        line = wx.StaticLine(Tela)
+        line = wx.StaticLine(self.Tela)
         sizer.Add(line, pos=(3,0), span=(1,5), 
                 flag = wx.EXPAND|wx.RIGHT, border = 10)
 
@@ -137,61 +133,61 @@ class equacaoFrame(wx.Frame):
 
         #Inserindo botões de imagem
         beta = wx.Image("Imagens/beta.png", wx.BITMAP_TYPE_ANY).ConvertToBitmap()
-        self.betabutton = wx.BitmapButton(Tela, -1, beta, pos=(5,100), size =(beta.GetWidth()+5, beta.GetHeight()+5))
+        self.betabutton = wx.BitmapButton(self.Tela, -1, beta, pos=(5,100), size =(beta.GetWidth()+5, beta.GetHeight()+5))
 
         alpha = wx.Image("Imagens/alpha.png", wx.BITMAP_TYPE_ANY).ConvertToBitmap()
-        self.alphabutton = wx.BitmapButton(Tela, -1, alpha, pos=(60,100), size =(alpha.GetWidth()+5, alpha.GetHeight()+5))      
+        self.alphabutton = wx.BitmapButton(self.Tela, -1, alpha, pos=(60,100), size =(alpha.GetWidth()+5, alpha.GetHeight()+5))      
 
         theta = wx.Image("Imagens/theta.png", wx.BITMAP_TYPE_ANY).ConvertToBitmap()
-        self.thetabutton = wx.BitmapButton(Tela, -1, theta, pos=(115,100), size =(theta.GetWidth()+5, theta.GetHeight()+5))
+        self.thetabutton = wx.BitmapButton(self.Tela, -1, theta, pos=(115,100), size =(theta.GetWidth()+5, theta.GetHeight()+5))
 
         delta = wx.Image("Imagens/delta.png", wx.BITMAP_TYPE_ANY).ConvertToBitmap()
-        self.deltabutton = wx.BitmapButton(Tela, -1, delta, pos=(170,100), size =(delta.GetWidth()+5, delta.GetHeight()+5))
+        self.deltabutton = wx.BitmapButton(self.Tela, -1, delta, pos=(170,100), size =(delta.GetWidth()+5, delta.GetHeight()+5))
 
         omega = wx.Image("Imagens/omega.png", wx.BITMAP_TYPE_ANY).ConvertToBitmap()
-        self.omegabutton = wx.BitmapButton(Tela, -1, omega, pos=(225,100), size =(omega.GetWidth()+5, omega.GetHeight()+5))
+        self.omegabutton = wx.BitmapButton(self.Tela, -1, omega, pos=(225,100), size =(omega.GetWidth()+5, omega.GetHeight()+5))
 
         sigma = wx.Image("Imagens/sigma.png", wx.BITMAP_TYPE_ANY).ConvertToBitmap()
-        self.sigmabutton = wx.BitmapButton(Tela, -1, sigma, pos=(280,100), size =(sigma.GetWidth()+5, sigma.GetHeight()+5))
+        self.sigmabutton = wx.BitmapButton(self.Tela, -1, sigma, pos=(280,100), size =(sigma.GetWidth()+5, sigma.GetHeight()+5))
 
         pi = wx.Image("Imagens/pi.png", wx.BITMAP_TYPE_ANY).ConvertToBitmap()
-        self.pibutton = wx.BitmapButton(Tela, -1, pi, pos=(170,155), size =(pi.GetWidth()+5, pi.GetHeight()+5))
+        self.pibutton = wx.BitmapButton(self.Tela, -1, pi, pos=(170,155), size =(pi.GetWidth()+5, pi.GetHeight()+5))
 
         menorq = wx.Image("Imagens/lessthan.jpg", wx.BITMAP_TYPE_ANY).ConvertToBitmap()
-        self.menorqbutton = wx.BitmapButton(Tela, -1, menorq, pos=(335,100), size =(menorq.GetWidth()+5, menorq.GetHeight()+5))
+        self.menorqbutton = wx.BitmapButton(self.Tela, -1, menorq, pos=(335,100), size =(menorq.GetWidth()+5, menorq.GetHeight()+5))
 
         maiorq = wx.Image("Imagens/biggerthan.png", wx.BITMAP_TYPE_ANY).ConvertToBitmap()
-        self.maiorqbutton = wx.BitmapButton(Tela, -1, maiorq, pos=(335,155), size =(maiorq.GetWidth()+5, maiorq.GetHeight()+5))
+        self.maiorqbutton = wx.BitmapButton(self.Tela, -1, maiorq, pos=(335,155), size =(maiorq.GetWidth()+5, maiorq.GetHeight()+5))
 
         exist = wx.Image("Imagens/exist.png", wx.BITMAP_TYPE_ANY).ConvertToBitmap()
-        self.existbutton = wx.BitmapButton(Tela, -1, exist, pos=(10,155), size =(exist.GetWidth()+5, exist.GetHeight()+5))
+        self.existbutton = wx.BitmapButton(self.Tela, -1, exist, pos=(10,155), size =(exist.GetWidth()+5, exist.GetHeight()+5))
 
-        diferente = wx.Image("Imagens/diferente.png", wx.BITMAP_TYPE_ANY).ConvertToBitmap()
-        self.diferentebutton = wx.BitmapButton(Tela, -1, diferente, pos=(60,155), size =(diferente.GetWidth()+5, diferente.GetHeight()+5))
+        npertence = wx.Image("Imagens/npertence.png", wx.BITMAP_TYPE_ANY).ConvertToBitmap()
+        self.npertencebutton = wx.BitmapButton(self.Tela, -1, npertence, pos=(60,155), size =(npertence.GetWidth()+5, npertence.GetHeight()+5))
 
         pertence = wx.Image("Imagens/pertence.png", wx.BITMAP_TYPE_ANY).ConvertToBitmap()
-        self.pertencebutton = wx.BitmapButton(Tela, -1, pertence, pos=(115,155), size =(pertence.GetWidth()+5, pertence.GetHeight()+5))
+        self.pertencebutton = wx.BitmapButton(self.Tela, -1, pertence, pos=(115,155), size =(pertence.GetWidth()+5, pertence.GetHeight()+5))
 
-        raiz = wx.Image("Imagens/squareroot.jpg", wx.BITMAP_TYPE_ANY).ConvertToBitmap()
-        self.raizbutton = wx.BitmapButton(Tela, -1, raiz, pos=(225,155), size =(raiz.GetWidth()+5, raiz.GetHeight()+5))
+        raiz = wx.Image("Imagens/squareroot.png", wx.BITMAP_TYPE_ANY).ConvertToBitmap()
+        self.raizbutton = wx.BitmapButton(self.Tela, -1, raiz, pos=(225,155), size =(raiz.GetWidth()+5, raiz.GetHeight()+5))
 
         raizN = wx.Image("Imagens/squarerootX.png", wx.BITMAP_TYPE_ANY).ConvertToBitmap()
-        self.raizNbutton = wx.BitmapButton(Tela, -1, raizN, pos=(280,155), size =(raizN.GetWidth()+5, raizN.GetHeight()+5))
+        self.raizNbutton = wx.BitmapButton(self.Tela, -1, raizN, pos=(280,155), size =(raizN.GetWidth()+5, raizN.GetHeight()+5))
 
         sobre = wx.Image("Imagens/sobre.png", wx.BITMAP_TYPE_ANY).ConvertToBitmap()
-        self.sobrebutton = wx.BitmapButton(Tela, -1, sobre, pos=(115,210), size =(sobre.GetWidth()+5, sobre.GetHeight()+5))
+        self.sobrebutton = wx.BitmapButton(self.Tela, -1, sobre, pos=(115,210), size =(sobre.GetWidth()+5, sobre.GetHeight()+5))
 
         abaixo = wx.Image("Imagens/abaixo.png", wx.BITMAP_TYPE_ANY).ConvertToBitmap()
-        self.abaixobutton = wx.BitmapButton(Tela, -1, abaixo, pos=(170,210), size =(abaixo.GetWidth()+5, abaixo.GetHeight()+5))
+        self.abaixobutton = wx.BitmapButton(self.Tela, -1, abaixo, pos=(170,210), size =(abaixo.GetWidth()+5, abaixo.GetHeight()+5))
 
         fraction = wx.Image("Imagens/fraction.png", wx.BITMAP_TYPE_ANY).ConvertToBitmap()
-        self.fractionbutton = wx.BitmapButton(Tela, -1, fraction, pos=(225,210), size =(fraction.GetWidth()+5, fraction.GetHeight()+5))
+        self.fractionbutton = wx.BitmapButton(self.Tela, -1, fraction, pos=(225,210), size =(fraction.GetWidth()+5, fraction.GetHeight()+5))
 
         subset = wx.Image("Imagens/subset.png", wx.BITMAP_TYPE_ANY).ConvertToBitmap()
-        self.subsetbutton = wx.BitmapButton(Tela, -1, subset, pos=(280,210), size =(subset.GetWidth()+5, subset.GetHeight()+5))
+        self.subsetbutton = wx.BitmapButton(self.Tela, -1, subset, pos=(280,210), size =(subset.GetWidth()+5, subset.GetHeight()+5))
         
         notsubset = wx.Image("Imagens/notsubset.png", wx.BITMAP_TYPE_ANY).ConvertToBitmap()
-        self.notsubsetbutton = wx.BitmapButton(Tela, -1, notsubset, pos=(60,210), size =(notsubset.GetWidth()+5, notsubset.GetHeight()+5))
+        self.notsubsetbutton = wx.BitmapButton(self.Tela, -1, notsubset, pos=(60,210), size =(notsubset.GetWidth()+5, notsubset.GetHeight()+5))
 
 
         self.input.Bind(wx.EVT_TEXT, self.Onwrite, self.input)
@@ -217,8 +213,8 @@ class equacaoFrame(wx.Frame):
         self.menorqbutton.SetDefault()
         self.Bind(wx.EVT_BUTTON, self.writeexist, self.existbutton)
         self.existbutton.SetDefault()
-        self.Bind(wx.EVT_BUTTON, self.writediferente, self.diferentebutton)
-        self.diferentebutton.SetDefault()
+        self.Bind(wx.EVT_BUTTON, self.writenpertence, self.npertencebutton)
+        self.npertencebutton.SetDefault()
         self.Bind(wx.EVT_BUTTON, self.writepertence, self.pertencebutton)
         self.pertencebutton.SetDefault()
         self.Bind(wx.EVT_BUTTON, self.writepi, self.pibutton)
@@ -252,8 +248,8 @@ class equacaoFrame(wx.Frame):
             MessageBox('Insira uma equação primeiro')
         else:
             image_path = display_equation(user_input) # <-------- STRING Q GUARDA O CAMINHO PARA A IMAGEM
-            equation_image = wx.Image(image_path, wx.BITMAP_TYPE_ANY).ConvertToBitmap() # <------------ A INTENÇÃO ERA FAZER UM BOTÃO COM A IMAGEM MAS EU N SEI FAZER ESSA MERDA
-            
+            resposta = wx.Image(image_path, wx.BITMAP_TYPE_ANY).ConvertToBitmap()
+            wx.StaticBitmap(self, -1, resposta, (150, 245), size=(resposta.GetWidth(), resposta.GetHeight()))
 
     def writebeta(self, event):
         beta  = self.input.AppendText('\\beta')
@@ -271,7 +267,7 @@ class equacaoFrame(wx.Frame):
         menor  = self.input.AppendText('\\less')
     def writeexist(self,event):
         exist  = self.input.AppendText('\\exists')
-    def writediferente(self, event):
+    def writenpertence(self, event):
         diferente  = self.input.AppendText('\\neq')
     def writepertence(self,event):
         pertence  = self.input.AppendText('\\in')
@@ -300,7 +296,6 @@ def main():
     ex = equacaoFrame(None, title='Editor de equação')
     ex.Show()
     app.MainLoop()
-
 
 if __name__ == '__main__':
     main()
