@@ -7,7 +7,7 @@ class equacaoFrame(wx.Frame):
 ######## INICIANDO PAGINA #########
     def __init__(self, parent, title):
         super(equacaoFrame, self).__init__(parent, title=title, size= (400,400))
-    
+
         self.locale = wx.Locale(wx.LANGUAGE_PORTUGUESE_BRAZILIAN)
         #criando uma barra de menu#
         self.makeMenuBar()
@@ -65,7 +65,7 @@ class equacaoFrame(wx.Frame):
 
     #### SALVAR COMO ####
     def Onsaveas(self, event):
-     with wx.FileDialog(self,"Save as txt file", wildcard="txt files (*.txt)|*.txt",
+     with wx.FileDialog(self,"Save as txt file", wildcard="txt files (*.Prya)|*.txt",
                         style=wx.FD_SAVE|wx.FD_OVERWRITE_PROMPT) as fileDialog:
         if fileDialog.ShowModal() == wx.ID_CANCEL:
             return   
@@ -101,11 +101,12 @@ class equacaoFrame(wx.Frame):
         font_text1 = wx.Font(12, wx.ROMAN, wx.ITALIC, wx.NORMAL)
         text.SetFont(font_text1)
         sizer.Add(text, pos=(0, 0), flag=wx.TOP|wx.LEFT|wx.BOTTOM, border=5)
-
-        user_input = wx.TextCtrl(Tela)
-        sizer.Add(user_input, pos=(1, 0), span=(1, 4),
+        
+        self.input = wx.TextCtrl(Tela)
+        sizer.Add(self.input, pos=(1, 0), span=(1, 4),
             flag=wx.EXPAND|wx.LEFT|wx.RIGHT, border=5)
         Tela.SetSizer(sizer)
+           
 
         #inserindo botao de enviar e limpar 
         buttonsend = wx.Button(Tela, label="Gerar", size=(90, 28))
@@ -118,9 +119,9 @@ class equacaoFrame(wx.Frame):
         saida.SetFont(font)
 
         #caixa de texto da saida
-        resposta_final = wx.TextCtrl(Tela)
-        sizer.Add(resposta_final, pos=(4,0), span=(1,5), flag=wx.EXPAND|wx.LEFT|wx.RIGHT,
-            border=8)
+        #resposta_final = wx.TextCtrl(Tela)
+        #sizer.Add(resposta_final, pos=(4,0), span=(1,5), flag=wx.EXPAND|wx.LEFT|wx.RIGHT,
+        #    border=8)
 
         #definindo cor de background
         Tela.SetBackgroundColour(WHITE)
@@ -165,13 +166,13 @@ class equacaoFrame(wx.Frame):
         exist = wx.Image("Imagens/exist.png", wx.BITMAP_TYPE_ANY).ConvertToBitmap()
         self.existbutton = wx.BitmapButton(Tela, -1, exist, pos=(10,155), size =(exist.GetWidth()+5, exist.GetHeight()+5))
 
-        npertence = wx.Image("Imagens/npertence.png", wx.BITMAP_TYPE_ANY).ConvertToBitmap()
-        self.npertencebutton = wx.BitmapButton(Tela, -1, npertence, pos=(60,155), size =(npertence.GetWidth()+5, npertence.GetHeight()+5))
+        diferente = wx.Image("Imagens/diferente.png", wx.BITMAP_TYPE_ANY).ConvertToBitmap()
+        self.diferentebutton = wx.BitmapButton(Tela, -1, diferente, pos=(60,155), size =(diferente.GetWidth()+5, diferente.GetHeight()+5))
 
         pertence = wx.Image("Imagens/pertence.png", wx.BITMAP_TYPE_ANY).ConvertToBitmap()
         self.pertencebutton = wx.BitmapButton(Tela, -1, pertence, pos=(115,155), size =(pertence.GetWidth()+5, pertence.GetHeight()+5))
 
-        raiz = wx.Image("Imagens/squareroot.png", wx.BITMAP_TYPE_ANY).ConvertToBitmap()
+        raiz = wx.Image("Imagens/squareroot.jpg", wx.BITMAP_TYPE_ANY).ConvertToBitmap()
         self.raizbutton = wx.BitmapButton(Tela, -1, raiz, pos=(225,155), size =(raiz.GetWidth()+5, raiz.GetHeight()+5))
 
         raizN = wx.Image("Imagens/squarerootX.png", wx.BITMAP_TYPE_ANY).ConvertToBitmap()
@@ -192,12 +193,14 @@ class equacaoFrame(wx.Frame):
         notsubset = wx.Image("Imagens/notsubset.png", wx.BITMAP_TYPE_ANY).ConvertToBitmap()
         self.notsubsetbutton = wx.BitmapButton(Tela, -1, notsubset, pos=(60,210), size =(notsubset.GetWidth()+5, notsubset.GetHeight()+5))
 
-        #botao de enviar
-        self.Bind(wx.EVT_BUTTON, self.enviar, buttonsend)
 
+        self.input.Bind(wx.EVT_TEXT, self.Onwrite, self.input)
+        #Ação ao clicar em gerar
+        buttonsend.Bind(wx.EVT_BUTTON, self.enviar, buttonsend)
+        
         #AÇÃO AO CLICAR NOS BOTOES#
         self.Bind(wx.EVT_BUTTON, self.writebeta, self.betabutton)
-
+        
         #definindo botao imagem como uma ação
         self.betabutton.SetDefault()
         self.Bind(wx.EVT_BUTTON, self.writealpha, self.alphabutton)
@@ -214,8 +217,8 @@ class equacaoFrame(wx.Frame):
         self.menorqbutton.SetDefault()
         self.Bind(wx.EVT_BUTTON, self.writeexist, self.existbutton)
         self.existbutton.SetDefault()
-        self.Bind(wx.EVT_BUTTON, self.writenpertence, self.npertencebutton)
-        self.npertencebutton.SetDefault()
+        self.Bind(wx.EVT_BUTTON, self.writediferente, self.diferentebutton)
+        self.diferentebutton.SetDefault()
         self.Bind(wx.EVT_BUTTON, self.writepertence, self.pertencebutton)
         self.pertencebutton.SetDefault()
         self.Bind(wx.EVT_BUTTON, self.writepi, self.pibutton)
@@ -237,47 +240,59 @@ class equacaoFrame(wx.Frame):
         self.Bind(wx.EVT_BUTTON, self.writesubset, self.subsetbutton)
         self.subsetbutton.SetDefault()
 
+    def Onwrite(self,event):
+        user = event.GetString()
+        print(user)
+        return user    
+        
     def enviar(self, event):
-        MessageBox("Enviar")  
+        #uso o nome do TextCtrl para pegar o valor escrito com GetValue
+        user_input = self.input.GetValue()
+        if(user_input == ''):
+            MessageBox('Insira uma equação primeiro')
+        else:
+            image_path = display_equation(user_input) # <-------- STRING Q GUARDA O CAMINHO PARA A IMAGEM
+            equation_image = wx.Image(image_path, wx.BITMAP_TYPE_ANY).ConvertToBitmap() # <------------ A INTENÇÃO ERA FAZER UM BOTÃO COM A IMAGEM MAS EU N SEI FAZER ESSA MERDA
+            
 
     def writebeta(self, event):
-        wx.TextCtrl.AppendText(self, 'kuwabara')
+        beta  = self.input.AppendText('\\beta')
     def writealpha(self, event):
-        MessageBox("Escrever Alpha")      
+        alpha  = self.input.AppendText('\\alpha')   
     def writetheta(self, event):
-        MessageBox("Escrever theta")
+        Theta  = self.input.AppendText('\\theta')
     def writedelta(self, event):
-        MessageBox("Escrever Delta")
+        delta  = self.input.AppendText('\\delta')
     def writeomega(self, event):
-        MessageBox("Escrever Omega")
+        omega  = self.input.AppendText('\\omega')
     def writesigma(self, event):
-        MessageBox("Escrever Soma")
+        sigma  = self.input.AppendText('\\sigma')
     def writemenorq(self, event):
-        MessageBox("Escrever Menor que")
+        menor  = self.input.AppendText('\\less')
     def writeexist(self,event):
-        MessageBox("Escrever Existe")
-    def writenpertence(self, event):
-        MessageBox("Escrever Não pertence")
+        exist  = self.input.AppendText('\\exists')
+    def writediferente(self, event):
+        diferente  = self.input.AppendText('\\neq')
     def writepertence(self,event):
-        MessageBox("Escrever Pertence")
+        pertence  = self.input.AppendText('\\in')
     def writepi(self, event):
-        MessageBox("Escrever Pi")
+        pi  = self.input.AppendText('\\pi')
     def writeraiz(self, event):
-        MessageBox("Escrever a raiz")
+        raiz  = self.input.AppendText('\sqrt{radicando}')
     def writeraizn(self, event):
-        MessageBox("Escrever a raiz com variavel")
+        raizX  = self.input.AppendText('\sqrt[indice]{radicando}')
     def writemaiorq(self, event):
-        MessageBox("Escrever Maior que")
+        maior  = self.input.AppendText('\\greater')
     def writesobre(self, event):
-        MessageBox("Escrever X elevado")
+       sobre  = self.input.AppendText('^{indice}')
     def writeabaixo(self, event):
-        MessageBox("Escrever X com n abaixo")
+        abaixo  = self.input.AppendText('_{indice}')
     def writefraction(self, event):
-        MessageBox("escrever fração")
+        fraction  = self.input.AppendText('\\frac{numerador}{denominador}')
     def writenotsubset(self, event):
-        MessageBox("Escrever  nao contido")
+        nsubset  = self.input.AppendText('\\nsubset')
     def writesubset(self, event):
-        MessageBox("Escrever contido")
+       subset  = self.input.AppendText('\\subset')
         
 #função principal
 def main():
