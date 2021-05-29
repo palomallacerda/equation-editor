@@ -162,13 +162,13 @@ class equacaoFrame(wx.Frame):
         exist = wx.Image("Imagens/exist.png", wx.BITMAP_TYPE_ANY).ConvertToBitmap()
         self.existbutton = wx.BitmapButton(self.Tela, -1, exist, pos=(10,155), size =(exist.GetWidth()+5, exist.GetHeight()+5))
 
-        npertence = wx.Image("Imagens/npertence.png", wx.BITMAP_TYPE_ANY).ConvertToBitmap()
-        self.npertencebutton = wx.BitmapButton(self.Tela, -1, npertence, pos=(60,155), size =(npertence.GetWidth()+5, npertence.GetHeight()+5))
+        diferente = wx.Image("Imagens/diferente.png", wx.BITMAP_TYPE_ANY).ConvertToBitmap()
+        self.diferentebutton = wx.BitmapButton(self.Tela, -1, diferente, pos=(60,155), size =(diferente.GetWidth()+5, diferente.GetHeight()+5))
 
         pertence = wx.Image("Imagens/pertence.png", wx.BITMAP_TYPE_ANY).ConvertToBitmap()
         self.pertencebutton = wx.BitmapButton(self.Tela, -1, pertence, pos=(115,155), size =(pertence.GetWidth()+5, pertence.GetHeight()+5))
 
-        raiz = wx.Image("Imagens/squareroot.png", wx.BITMAP_TYPE_ANY).ConvertToBitmap()
+        raiz = wx.Image("Imagens/squareroot.jpg", wx.BITMAP_TYPE_ANY).ConvertToBitmap()
         self.raizbutton = wx.BitmapButton(self.Tela, -1, raiz, pos=(225,155), size =(raiz.GetWidth()+5, raiz.GetHeight()+5))
 
         raizN = wx.Image("Imagens/squarerootX.png", wx.BITMAP_TYPE_ANY).ConvertToBitmap()
@@ -213,8 +213,8 @@ class equacaoFrame(wx.Frame):
         self.menorqbutton.SetDefault()
         self.Bind(wx.EVT_BUTTON, self.writeexist, self.existbutton)
         self.existbutton.SetDefault()
-        self.Bind(wx.EVT_BUTTON, self.writenpertence, self.npertencebutton)
-        self.npertencebutton.SetDefault()
+        self.Bind(wx.EVT_BUTTON, self.writediferente, self.diferentebutton)
+        self.diferentebutton.SetDefault()
         self.Bind(wx.EVT_BUTTON, self.writepertence, self.pertencebutton)
         self.pertencebutton.SetDefault()
         self.Bind(wx.EVT_BUTTON, self.writepi, self.pibutton)
@@ -267,7 +267,7 @@ class equacaoFrame(wx.Frame):
         menor  = self.input.AppendText('\\less')
     def writeexist(self,event):
         exist  = self.input.AppendText('\\exists')
-    def writenpertence(self, event):
+    def writediferente(self, event):
         diferente  = self.input.AppendText('\\neq')
     def writepertence(self,event):
         pertence  = self.input.AppendText('\\in')
